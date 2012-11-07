@@ -6,37 +6,39 @@
 //  Copyright (c) 2012 Grant Sutcliffe. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "TableViewController.h"
 #import "TweetCell.h"
 #import <Twitter/Twitter.h>
 
-@interface ViewController ()
+@interface TableViewController ()
 
 @end
 
-@implementation ViewController
+@implementation TableViewController
+
+@synthesize tableView;
 
 NSArray *tweets;
 NSMutableArray *images;
-UITableView *tableView;
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    tableView = [self.view.subviews objectAtIndex:0];
     
     // Setup notification to reload tweets everytime the app is opened or re-enters foreground
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadTweets) name:@"willEnterForeground" object:nil];
     [self loadTweets];
 }
 
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 // Function to download a new set of tweets and refresh the page
 - (void)loadTweets
 {
-    images = nil;
-    tweets = nil;
-    
     // Get Tweets
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:@"50" forKey:@"rpp"];
@@ -146,8 +148,8 @@ UITableView *tableView;
 
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        UIViewController *temp = [[UIViewController alloc] initWithNibName:@"TweetCell" bundle:nil];
-        cell = (TweetCell *)temp.view;
+        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"TweetCell" owner:self options:nil];
+        cell = (TweetCell *) [topLevelObjects objectAtIndex:0];
     }
     
     // Get current tweet
