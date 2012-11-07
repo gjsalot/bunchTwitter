@@ -11,6 +11,7 @@
 @interface TweetCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *tweetLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property(nonatomic, readonly, copy) NSString *reuseIdentifier;
 -(void)setTweetText:(NSString *)text;
 
 @end

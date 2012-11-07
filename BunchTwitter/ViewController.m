@@ -133,17 +133,6 @@ UITableView *tableView;
         return 70;
     else
         return stringSize.height + 22;
-    
-//    // Get size of tweet text
-//    NSDictionary *currentTweet = [tweets objectAtIndex:indexPath.row];
-//    NSString *string = [currentTweet valueForKey:@"text"];
-//    CGSize stringSize = [string sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(240, 9999) lineBreakMode:NSLineBreakByWordWrapping];
-//    
-//    // Retrun frame from size of tweet or if short default 70
-//    if (stringSize.height + 20 < 70)
-//        return 70;
-//    else
-//        return stringSize.height + 20;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -153,57 +142,6 @@ UITableView *tableView;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    static NSString *CellIdentifier = @"Cell";
-//    
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//    if (cell == nil) {
-//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-//    }
-//    
-//    while (cell.contentView.subviews.count != 0)
-//    {
-//           [cell.contentView.subviews[0] removeFromSuperview];
-//    }
-//    
-//    // Get current tweet
-//    NSDictionary *currentTweet = [tweets objectAtIndex:indexPath.row];
-//    
-//    // Get the size of the tweet text
-//    NSString *string = [currentTweet valueForKey:@"text"];
-//    CGSize stringSize = [string sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(240, 9999) lineBreakMode:NSLineBreakByWordWrapping];
-//    
-//    // Create text label
-//    UILabel *textV=[[UILabel alloc] initWithFrame:CGRectMake(70, 10, 240, stringSize.height)];
-//    [textV setNumberOfLines:0];
-//    [textV setLineBreakMode:NSLineBreakByWordWrapping];
-//    textV.font = [UIFont systemFontOfSize:14];
-//    textV.backgroundColor = [UIColor clearColor];
-//    textV.text = string;
-//    textV.textColor=[UIColor blackColor];
-//    [cell.contentView addSubview:textV];
-//    
-//    // Create image frame
-//    CGRect imageViewFrame;
-//    if (stringSize.height + 20 < 70) // if short tweet default to height of 70
-//        imageViewFrame = CGRectMake(11, 11, 48, 48);
-//    else
-//        imageViewFrame = CGRectMake(11, ((stringSize.height + 20 ) / 2) - 24, 48, 48);
-//    UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageViewFrame];
-//    
-//    // If profile picture available, otherwise default picture
-//    if ([images count] > indexPath.row)
-//            [imageView setImage:[[UIImage alloc] initWithData:[images objectAtIndex:indexPath.row]]];
-//    else
-//    {
-//        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"noprofilepic" ofType:@"png"];
-//        NSData *imageData = [NSData dataWithContentsOfFile:filePath];
-//        [imageView setImage:[[UIImage alloc] initWithData:imageData]];
-//    }
-//    
-//    [cell.contentView addSubview:imageView];
-//    
-//    return cell;
-    
     static NSString *CellIdentifier = @"TweetCell";
 
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];

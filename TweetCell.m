@@ -47,4 +47,8 @@
     return tweetLabel.frame.size.height + 22;
 }
 
+- (NSString *) reuseIdentifier {
+    return @"TweetCell";
+}
+
 @end
