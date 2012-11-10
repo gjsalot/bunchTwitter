@@ -8,6 +8,7 @@
 
 #import "TableViewController.h"
 #import "TweetCell.h"
+#import "UIImageView+AFNetworking.h"
 #import <Twitter/Twitter.h>
 
 @interface TableViewController ()
@@ -16,10 +17,10 @@
 
 @implementation TableViewController
 
-@synthesize tableView;
+//@synthesize tableView;
 
 NSArray *tweets;
-NSMutableArray *images;
+UIImage *placeholder;
 
 
 - (void)viewDidLoad
@@ -39,9 +40,14 @@ NSMutableArray *images;
 // Function to download a new set of tweets and refresh the page
 - (void)loadTweets
 {
+    // Load placeholder image for use later
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"noprofilepic" ofType:@"png"];
+    NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+    placeholder = [[UIImage alloc] initWithData:imageData];
+    
     // Get Tweets
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:@"50" forKey:@"rpp"];
+    [params setObject:@"59" forKey:@"rpp"];
     [params setObject:@"a" forKey:@"q"];
     NSURL *url = [NSURL URLWithString:@"http://search.twitter.com/search.json"];
     TWRequest *request = [[TWRequest alloc]     initWithURL:url
@@ -61,10 +67,6 @@ NSMutableArray *images;
                  NSLog(@"%@", dict);
                  tweets = [dict objectForKey:@"results"];
                  
-                 // Get profile pictures...
-                 images = [[NSMutableArray alloc] init];
-                 [self performSelectorInBackground:(@selector(loadImages)) withObject:nil];
-                 
                  [self performSelectorOnMainThread:(@selector(setTweets)) withObject:nil waitUntilDone:NO];
              }
              else {
@@ -75,42 +77,10 @@ NSMutableArray *images;
      }];
 }
 
-// Function to download images in background and alert foreground as image downloaded
-- (void)loadImages
-{
-    for (int i = 0; i < [tweets count]; i++)
-    {
-        // Get url of current profile picture and download it
-        NSString *urlString = [[[tweets objectAtIndex:i] valueForKey:@"profile_image_url"] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
-        NSURL * imageURL = [NSURL URLWithString:urlString];
-        NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
-        
-        // If nothing returns, put a placeholder image in
-        if ([imageData length] == 0)
-        {
-            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"noprofilepic" ofType:@"png"];
-            imageData = [NSData dataWithContentsOfFile:filePath];
-        }
-        [images addObject:imageData];
-        
-        // Call foreground to update cell picture
-        UITableViewCell *cell = (UITableViewCell *)[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-        [self performSelectorOnMainThread:(@selector(updateCell:)) withObject:cell waitUntilDone:NO];
-        
-        NSLog(@"Image added");
-    }
-}
-
-// Function to update a specific cell in foreground
-- (void)updateCell:(UITableViewCell *)cell
-{
-    [tableView reloadRowsAtIndexPaths:[[NSArray alloc] initWithObjects:[tableView indexPathForCell:cell], nil] withRowAnimation:NO];
-}
-
 // Function to reload talblview in foreground
 - (void)setTweets
 {
-    [tableView reloadData];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -145,8 +115,9 @@ NSMutableArray *images;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"TweetCell";
-
+    
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
     if (cell == nil) {
         NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"TweetCell" owner:self options:nil];
         cell = (TweetCell *) [topLevelObjects objectAtIndex:0];
@@ -158,14 +129,9 @@ NSMutableArray *images;
     [cell setTweetText:[currentTweet valueForKey:@"text"]];
     
     // If profile picture available, otherwise default picture
-    if ([images count] > indexPath.row)
-            [cell.imageView setImage:[[UIImage alloc] initWithData:[images objectAtIndex:indexPath.row]]];
-    else
-    {
-        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"noprofilepic" ofType:@"png"];
-        NSData *imageData = [NSData dataWithContentsOfFile:filePath];
-        [cell.imageView setImage:[[UIImage alloc] initWithData:imageData]];
-    }
+    NSString *urlString = [[currentTweet valueForKey:@"profile_image_url"] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+    NSURL * imageURL = [NSURL URLWithString:urlString];
+    [cell.imageView setImageWithURL:imageURL placeholderImage:placeholder];
     
     return cell;
 }
