@@ -17,8 +17,6 @@
 
 @implementation TableViewController
 
-//@synthesize tableView;
-
 NSArray *tweets;
 UIImage *placeholder;
 
