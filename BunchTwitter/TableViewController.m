@@ -7,8 +7,9 @@
 //
 
 #import "TableViewController.h"
-#import "TweetCell.h"
+#import "StatusCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "Status.h"
 #import <Twitter/Twitter.h>
 
 @interface TableViewController ()
@@ -17,7 +18,7 @@
 
 @implementation TableViewController
 
-NSArray *tweets;
+NSArray *statuses;
 UIImage *placeholder;
 
 
@@ -27,7 +28,7 @@ UIImage *placeholder;
     
     // Setup notification to reload tweets everytime the app is opened or re-enters foreground
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadTweets) name:@"willEnterForeground" object:nil];
-    [self loadTweets];
+    [self loadStatuses];
 }
 
 -(void)dealloc
@@ -36,7 +37,7 @@ UIImage *placeholder;
 }
 
 // Function to download a new set of tweets and refresh the page
-- (void)loadTweets
+- (void)loadStatuses
 {
     // Load placeholder image for use later
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"noprofilepic" ofType:@"png"];
@@ -44,12 +45,9 @@ UIImage *placeholder;
     placeholder = [[UIImage alloc] initWithData:imageData];
     
     // Get Tweets
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:@"59" forKey:@"rpp"];
-    [params setObject:@"a" forKey:@"q"];
-    NSURL *url = [NSURL URLWithString:@"http://search.twitter.com/search.json"];
+    NSURL *url = [NSURL URLWithString:@"https://alpha-api.app.net/stream/0/posts/stream/global"];
     TWRequest *request = [[TWRequest alloc]     initWithURL:url
-                                                 parameters:params
+                                                 parameters:nil
                                               requestMethod:TWRequestMethodGET];
     [request performRequestWithHandler:
      ^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
@@ -63,9 +61,8 @@ UIImage *placeholder;
              
              if (dict) {
                  NSLog(@"%@", dict);
-                 tweets = [dict objectForKey:@"results"];
                  
-                 [self performSelectorOnMainThread:(@selector(setTweets)) withObject:nil waitUntilDone:NO];
+                 [self performSelectorInBackground:(@selector(updateStatusesWithDictionary:)) withObject:dict];
              }
              else {
                  // Inspect the contents of jsonError
@@ -75,8 +72,23 @@ UIImage *placeholder;
      }];
 }
 
+-(void)updateStatusesWithDictionary:(NSDictionary *)results
+{
+    statuses = [[NSArray alloc] init];
+    NSArray *data = [results objectForKey:@"data"];
+    
+    for (int i = 0; i < [data count]; i++)
+    {
+        Status *status = [[Status alloc] init];
+        [status updateWithDictionary:[data objectAtIndex:i]];
+        statuses = [statuses arrayByAddingObject:status];
+    }
+    
+    [self performSelectorOnMainThread:(@selector(setStatuses)) withObject:nil waitUntilDone:NO];
+}
+
 // Function to reload talblview in foreground
-- (void)setTweets
+- (void)setStatuses
 {
     [self.tableView reloadData];
 }
@@ -96,8 +108,8 @@ UIImage *placeholder;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *text = [[tweets objectAtIndex:indexPath.row] valueForKey:@"text"];
-    CGSize stringSize = [text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(239, 9999) lineBreakMode:NSLineBreakByWordWrapping];
+    Status *currentStatus = [statuses objectAtIndex:indexPath.row];
+    CGSize stringSize = [currentStatus.statusText sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(239, 9999) lineBreakMode:NSLineBreakByWordWrapping];
     
     if (stringSize.height + 22 < 70)
         return 70;
@@ -107,29 +119,29 @@ UIImage *placeholder;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [tweets count];
+    return [statuses count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"TweetCell";
+    static NSString *CellIdentifier = @"StatusCell";
     
-    TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    StatusCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"TweetCell" owner:self options:nil];
-        cell = (TweetCell *) [topLevelObjects objectAtIndex:0];
+        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"StatusCell" owner:self options:nil];
+        cell = (StatusCell *) [topLevelObjects objectAtIndex:0];
     }
     
     // Get current tweet
-    NSDictionary *currentTweet = [tweets objectAtIndex:indexPath.row];
+    Status *currentStatus = [statuses objectAtIndex:indexPath.row];
     
-    [cell setTweetText:[currentTweet valueForKey:@"text"]];
+    [cell setStatusText:currentStatus.statusText];
     
     // If profile picture available, otherwise default picture
-    NSString *urlString = [[currentTweet valueForKey:@"profile_image_url"] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
-    NSURL * imageURL = [NSURL URLWithString:urlString];
-    [cell.imageView setImageWithURL:imageURL placeholderImage:placeholder];
+    //NSString *urlString = currentTweet.user.avatarUrl;
+    //NSURL *imageURL = currentTweet.user.avatarUrl;//[NSURL URLWithString:urlString];
+    [cell.imageView setImageWithURL:currentStatus.user.avatarUrl placeholderImage:placeholder];
     
     return cell;
 }

@@ -34,9 +34,11 @@
 		0766685B164EAC0600E8A8B3 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07666850164EAC0600E8A8B3 /* AFURLConnectionOperation.m */; };
 		0766685C164EAC0600E8A8B3 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07666852164EAC0600E8A8B3 /* AFXMLRequestOperation.m */; };
 		0766685D164EAC0600E8A8B3 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 07666854164EAC0600E8A8B3 /* UIImageView+AFNetworking.m */; };
+		077C67061651B4E1006F3FE6 /* Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C67051651B4E1006F3FE6 /* Status.m */; };
+		077C670A1651B748006F3FE6 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C67091651B748006F3FE6 /* User.m */; };
 		0784F3051629C61C00F6D8C1 /* noprofilepic.png in Resources */ = {isa = PBXBuildFile; fileRef = 0784F3041629C61C00F6D8C1 /* noprofilepic.png */; };
-		07BB728916495166005B4044 /* TweetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07BB728816495166005B4044 /* TweetCell.xib */; };
-		07BB728D164952D9005B4044 /* TweetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB728C164952D9005B4044 /* TweetCell.m */; };
+		07BB728916495166005B4044 /* StatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07BB728816495166005B4044 /* StatusCell.xib */; };
+		07BB728D164952D9005B4044 /* StatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB728C164952D9005B4044 /* StatusCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,10 +95,14 @@
 		07666852164EAC0600E8A8B3 /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		07666853164EAC0600E8A8B3 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		07666854164EAC0600E8A8B3 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		077C67041651B4E1006F3FE6 /* Status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Status.h; sourceTree = "<group>"; };
+		077C67051651B4E1006F3FE6 /* Status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Status.m; sourceTree = "<group>"; };
+		077C67081651B748006F3FE6 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		077C67091651B748006F3FE6 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		0784F3041629C61C00F6D8C1 /* noprofilepic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noprofilepic.png; sourceTree = "<group>"; };
-		07BB728816495166005B4044 /* TweetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetCell.xib; sourceTree = "<group>"; };
-		07BB728B164952D9005B4044 /* TweetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetCell.h; sourceTree = "<group>"; };
-		07BB728C164952D9005B4044 /* TweetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetCell.m; sourceTree = "<group>"; };
+		07BB728816495166005B4044 /* StatusCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusCell.xib; sourceTree = "<group>"; };
+		07BB728B164952D9005B4044 /* StatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusCell.h; sourceTree = "<group>"; };
+		07BB728C164952D9005B4044 /* StatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,9 +133,13 @@
 		075A3D911625E8FF0081CEEC = {
 			isa = PBXGroup;
 			children = (
-				07BB728B164952D9005B4044 /* TweetCell.h */,
-				07BB728C164952D9005B4044 /* TweetCell.m */,
-				07BB728816495166005B4044 /* TweetCell.xib */,
+				077C67081651B748006F3FE6 /* User.h */,
+				077C67091651B748006F3FE6 /* User.m */,
+				077C67041651B4E1006F3FE6 /* Status.h */,
+				077C67051651B4E1006F3FE6 /* Status.m */,
+				07BB728B164952D9005B4044 /* StatusCell.h */,
+				07BB728C164952D9005B4044 /* StatusCell.m */,
+				07BB728816495166005B4044 /* StatusCell.xib */,
 				0784F3041629C61C00F6D8C1 /* noprofilepic.png */,
 				075A3DE61625F3540081CEEC /* Twitter.framework */,
 				075A3DA61625E8FF0081CEEC /* BunchTwitter */,
@@ -311,7 +321,7 @@
 				075A3DBA1625E8FF0081CEEC /* MainStoryboard_iPhone.storyboard in Resources */,
 				075A3DBD1625E8FF0081CEEC /* MainStoryboard_iPad.storyboard in Resources */,
 				0784F3051629C61C00F6D8C1 /* noprofilepic.png in Resources */,
-				07BB728916495166005B4044 /* TweetCell.xib in Resources */,
+				07BB728916495166005B4044 /* StatusCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,7 +359,7 @@
 				075A3DAD1625E8FF0081CEEC /* main.m in Sources */,
 				075A3DB11625E8FF0081CEEC /* AppDelegate.m in Sources */,
 				075A3DC01625E8FF0081CEEC /* TableViewController.m in Sources */,
-				07BB728D164952D9005B4044 /* TweetCell.m in Sources */,
+				07BB728D164952D9005B4044 /* StatusCell.m in Sources */,
 				07666855164EAC0600E8A8B3 /* AFHTTPClient.m in Sources */,
 				07666856164EAC0600E8A8B3 /* AFHTTPRequestOperation.m in Sources */,
 				07666857164EAC0600E8A8B3 /* AFImageRequestOperation.m in Sources */,
@@ -359,6 +369,8 @@
 				0766685B164EAC0600E8A8B3 /* AFURLConnectionOperation.m in Sources */,
 				0766685C164EAC0600E8A8B3 /* AFXMLRequestOperation.m in Sources */,
 				0766685D164EAC0600E8A8B3 /* UIImageView+AFNetworking.m in Sources */,
+				077C67061651B4E1006F3FE6 /* Status.m in Sources */,
+				077C670A1651B748006F3FE6 /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

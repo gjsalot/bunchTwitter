@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TweetCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *tweetLabel;
+@interface StatusCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property(nonatomic, readonly, copy) NSString *reuseIdentifier;
--(void)setTweetText:(NSString *)text;
+-(void)setStatusText:(NSString *)text;
 
 @end
