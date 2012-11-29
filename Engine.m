@@ -8,41 +8,48 @@
 
 #import "Engine.h"
 #import "AppNetAFHTTPClient.h"
+#import "Status.h"
 #import "AFJSONRequestOperation.h"
 
 @implementation Engine
 
 AppNetAFHTTPClient *_client;
+//AFHTTPClient *_client;
 
 -(id)init {
 	self = [super init];
 	if (self != nil) {
-		// initialize stuff here
         _client = [[AppNetAFHTTPClient alloc] init];
         [_client registerHTTPOperationClass:[AFJSONRequestOperation class]];
+        [_client setDefaultHeader:@"Accept" value:@"application/json"];
 	}
+    
     
 	return self;
 }
 
--(void) getPostsWithCompletion:(void (^)(NSError *, NSArray *))completionHandler
+-(void) getStatusesWithCompletion:(void (^)(NSError *, NSArray *))completionHandler
 {
-    [_client getPath:@"posts.json"
+    [_client getPath:@""
           parameters:nil
              success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                 NSArray *objects;
-                 NSLog(@"Success");
+                 NSArray *data = [responseObject valueForKeyPath:@"data"];
                  
-                 // Construct model objects from the parsed JSON in responseObject
-                 // ...
+                 NSArray *statuses = [[NSArray alloc] init];
+                 
+                 for (int i = 0; i < [data count]; i++)
+                 {
+                     Status *status = [[Status alloc] init];
+                     [status updateWithDictionary:[data objectAtIndex:i]];
+                     statuses = [statuses arrayByAddingObject:status];
+                 }
                  
                  if (completionHandler) {
-                     completionHandler(nil, objects);
+                     completionHandler(nil, statuses);
                  }
              }
              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                  if (completionHandler) {
-                     NSLog(@"Failure");
                      completionHandler(error, nil);
                  }
              }

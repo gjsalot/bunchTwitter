@@ -10,9 +10,13 @@
 
 @implementation AppNetAFHTTPClient
 
-- (NSURL *) baseURL {
-    NSURL *url = [[NSURL alloc] initWithString:@"https://alpha-api.app.net/stream/0/posts/stream/global"];
-    return url;
+-(id)init {
+	self = [super initWithBaseURL:[NSURL URLWithString:@"https://alpha-api.app.net/stream/0/posts/stream/global"]];
+	if (self != nil) {
+	}
+    
+	return self;
 }
+
 
 @end

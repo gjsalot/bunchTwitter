@@ -10,7 +10,7 @@
 #import "StatusCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "Status.h"
-#include "Engine.h"
+#import "Engine.h"
 #import <Twitter/Twitter.h>
 
 @interface TableViewController ()
@@ -29,7 +29,7 @@ Engine *engine;
     [super viewDidLoad];
     
     // Setup notification to reload tweets everytime the app is opened or re-enters foreground
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadTweets) name:@"willEnterForeground" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadStatuses) name:@"willEnterForeground" object:nil];
     engine = [[Engine alloc] init];
     [self loadStatuses];
 }
@@ -47,61 +47,11 @@ Engine *engine;
     NSData *imageData = [NSData dataWithContentsOfFile:filePath];
     placeholder = [[UIImage alloc] initWithData:imageData];
     
-    // Get Tweets
-    //NSURL *url = [NSURL URLWithString:@"https://alpha-api.app.net/stream/0/posts/stream/global"];
-    
-    NSLog(@"Calling engine...");
-    
-    [engine getPostsWithCompletion:^(NSError *error, NSArray *array)
+    [engine getStatusesWithCompletion:^(NSError *error, NSArray *array)
      {
-         NSLog(@"Get Posts Completed");
+         statuses = array;
+         [self.tableView reloadData];
      }];
-    
-//    TWRequest *request = [[TWRequest alloc]     initWithURL:url
-//                                                 parameters:nil
-//                                              requestMethod:TWRequestMethodGET];
-//    [request performRequestWithHandler:
-//     ^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-//         
-//         if (responseData) {
-//             NSError *jsonError;
-//             NSDictionary *dict =
-//             [NSJSONSerialization JSONObjectWithData:responseData
-//                                             options:NSJSONReadingMutableLeaves
-//                                               error:&jsonError];
-//             
-//             if (dict) {
-//                 NSLog(@"%@", dict);
-//                 
-//                 [self performSelectorInBackground:(@selector(updateStatusesWithDictionary:)) withObject:dict];
-//             }
-//             else {
-//                 // Inspect the contents of jsonError
-//                 NSLog(@"%@", jsonError);
-//             }
-//         }
-//     }];
-}
-
--(void)updateStatusesWithDictionary:(NSDictionary *)results
-{
-    statuses = [[NSArray alloc] init];
-    NSArray *data = [results objectForKey:@"data"];
-    
-    for (int i = 0; i < [data count]; i++)
-    {
-        Status *status = [[Status alloc] init];
-        [status updateWithDictionary:[data objectAtIndex:i]];
-        statuses = [statuses arrayByAddingObject:status];
-    }
-    
-    [self performSelectorOnMainThread:(@selector(setStatuses)) withObject:nil waitUntilDone:NO];
-}
-
-// Function to reload talblview in foreground
-- (void)setStatuses
-{
-    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -150,8 +100,6 @@ Engine *engine;
     [cell setStatusText:currentStatus.statusText];
     
     // If profile picture available, otherwise default picture
-    //NSString *urlString = currentTweet.user.avatarUrl;
-    //NSURL *imageURL = currentTweet.user.avatarUrl;//[NSURL URLWithString:urlString];
     [cell.imageView setImageWithURL:currentStatus.user.avatarUrl placeholderImage:placeholder];
     
     return cell;

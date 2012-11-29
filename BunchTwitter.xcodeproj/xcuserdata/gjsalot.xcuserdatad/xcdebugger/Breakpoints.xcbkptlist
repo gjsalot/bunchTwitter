@@ -72,19 +72,6 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "BunchTwitter/TableViewController.m"
-         timestampString = "375891316.033456"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "91"
-         endingLineNumber = "91"
-         landmarkName = "-updateStatusesWithDictionary:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "Status.m"
          timestampString = "374456151.566912"
          startingColumnNumber = "9223372036854775807"
@@ -112,24 +99,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Engine.m"
-         timestampString = "375889664.90462"
+         timestampString = "375905642.476427"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "22"
-         endingLineNumber = "22"
-         landmarkName = "-init"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "Engine.m"
-         timestampString = "375889687.752308"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "30"
-         endingLineNumber = "30"
+         startingLineNumber = "33"
+         endingLineNumber = "33"
          landmarkName = "-getPostsWithCompletion:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -137,25 +111,12 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AppNetAFHTTPClient.m"
-         timestampString = "375889746.43763"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "14"
-         endingLineNumber = "14"
-         landmarkName = "-baseURL"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "Engine.m"
-         timestampString = "375891316.033456"
+         timestampString = "375905856.817926"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "44"
-         endingLineNumber = "44"
+         startingLineNumber = "52"
+         endingLineNumber = "52"
          landmarkName = "-getPostsWithCompletion:"
          landmarkType = "5">
       </FileBreakpoint>

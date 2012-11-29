@@ -10,6 +10,6 @@
 
 @interface AppNetAFHTTPClient : AFHTTPClient
 
-@property (readonly, nonatomic) NSURL *baseURL;
+
 
 @end

@@ -10,6 +10,6 @@
 
 @interface Engine : NSObject
 
--(void) getPostsWithCompletion:(void (^)(NSError *, NSArray *))completionHandler;
+-(void) getStatusesWithCompletion:(void (^)(NSError *, NSArray *))completionHandler;
 
 @end
