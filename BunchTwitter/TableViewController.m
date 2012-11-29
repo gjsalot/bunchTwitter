@@ -10,6 +10,7 @@
 #import "StatusCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "Status.h"
+#include "Engine.h"
 #import <Twitter/Twitter.h>
 
 @interface TableViewController ()
@@ -20,6 +21,7 @@
 
 NSArray *statuses;
 UIImage *placeholder;
+Engine *engine;
 
 
 - (void)viewDidLoad
@@ -28,6 +30,7 @@ UIImage *placeholder;
     
     // Setup notification to reload tweets everytime the app is opened or re-enters foreground
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadTweets) name:@"willEnterForeground" object:nil];
+    engine = [[Engine alloc] init];
     [self loadStatuses];
 }
 
@@ -45,31 +48,39 @@ UIImage *placeholder;
     placeholder = [[UIImage alloc] initWithData:imageData];
     
     // Get Tweets
-    NSURL *url = [NSURL URLWithString:@"https://alpha-api.app.net/stream/0/posts/stream/global"];
-    TWRequest *request = [[TWRequest alloc]     initWithURL:url
-                                                 parameters:nil
-                                              requestMethod:TWRequestMethodGET];
-    [request performRequestWithHandler:
-     ^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-         
-         if (responseData) {
-             NSError *jsonError;
-             NSDictionary *dict =
-             [NSJSONSerialization JSONObjectWithData:responseData
-                                             options:NSJSONReadingMutableLeaves
-                                               error:&jsonError];
-             
-             if (dict) {
-                 NSLog(@"%@", dict);
-                 
-                 [self performSelectorInBackground:(@selector(updateStatusesWithDictionary:)) withObject:dict];
-             }
-             else {
-                 // Inspect the contents of jsonError
-                 NSLog(@"%@", jsonError);
-             }
-         }
+    //NSURL *url = [NSURL URLWithString:@"https://alpha-api.app.net/stream/0/posts/stream/global"];
+    
+    NSLog(@"Calling engine...");
+    
+    [engine getPostsWithCompletion:^(NSError *error, NSArray *array)
+     {
+         NSLog(@"Get Posts Completed");
      }];
+    
+//    TWRequest *request = [[TWRequest alloc]     initWithURL:url
+//                                                 parameters:nil
+//                                              requestMethod:TWRequestMethodGET];
+//    [request performRequestWithHandler:
+//     ^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+//         
+//         if (responseData) {
+//             NSError *jsonError;
+//             NSDictionary *dict =
+//             [NSJSONSerialization JSONObjectWithData:responseData
+//                                             options:NSJSONReadingMutableLeaves
+//                                               error:&jsonError];
+//             
+//             if (dict) {
+//                 NSLog(@"%@", dict);
+//                 
+//                 [self performSelectorInBackground:(@selector(updateStatusesWithDictionary:)) withObject:dict];
+//             }
+//             else {
+//                 // Inspect the contents of jsonError
+//                 NSLog(@"%@", jsonError);
+//             }
+//         }
+//     }];
 }
 
 -(void)updateStatusesWithDictionary:(NSDictionary *)results

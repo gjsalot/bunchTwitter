@@ -34,6 +34,8 @@
 		0766685B164EAC0600E8A8B3 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07666850164EAC0600E8A8B3 /* AFURLConnectionOperation.m */; };
 		0766685C164EAC0600E8A8B3 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07666852164EAC0600E8A8B3 /* AFXMLRequestOperation.m */; };
 		0766685D164EAC0600E8A8B3 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 07666854164EAC0600E8A8B3 /* UIImageView+AFNetworking.m */; };
+		0767B7C91667181B009F7D46 /* AppNetAFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0767B7C81667181B009F7D46 /* AppNetAFHTTPClient.m */; };
+		0767B7CD166798A6009F7D46 /* Engine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0767B7CC166798A6009F7D46 /* Engine.m */; };
 		077C67061651B4E1006F3FE6 /* Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C67051651B4E1006F3FE6 /* Status.m */; };
 		077C670A1651B748006F3FE6 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C67091651B748006F3FE6 /* User.m */; };
 		0784F3051629C61C00F6D8C1 /* noprofilepic.png in Resources */ = {isa = PBXBuildFile; fileRef = 0784F3041629C61C00F6D8C1 /* noprofilepic.png */; };
@@ -95,6 +97,10 @@
 		07666852164EAC0600E8A8B3 /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		07666853164EAC0600E8A8B3 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		07666854164EAC0600E8A8B3 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		0767B7C71667181B009F7D46 /* AppNetAFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppNetAFHTTPClient.h; sourceTree = "<group>"; };
+		0767B7C81667181B009F7D46 /* AppNetAFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppNetAFHTTPClient.m; sourceTree = "<group>"; };
+		0767B7CB166798A6009F7D46 /* Engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Engine.h; sourceTree = "<group>"; };
+		0767B7CC166798A6009F7D46 /* Engine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Engine.m; sourceTree = "<group>"; };
 		077C67041651B4E1006F3FE6 /* Status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Status.h; sourceTree = "<group>"; };
 		077C67051651B4E1006F3FE6 /* Status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Status.m; sourceTree = "<group>"; };
 		077C67081651B748006F3FE6 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -133,6 +139,10 @@
 		075A3D911625E8FF0081CEEC = {
 			isa = PBXGroup;
 			children = (
+				0767B7CB166798A6009F7D46 /* Engine.h */,
+				0767B7CC166798A6009F7D46 /* Engine.m */,
+				0767B7C71667181B009F7D46 /* AppNetAFHTTPClient.h */,
+				0767B7C81667181B009F7D46 /* AppNetAFHTTPClient.m */,
 				077C67081651B748006F3FE6 /* User.h */,
 				077C67091651B748006F3FE6 /* User.m */,
 				077C67041651B4E1006F3FE6 /* Status.h */,
@@ -371,6 +381,8 @@
 				0766685D164EAC0600E8A8B3 /* UIImageView+AFNetworking.m in Sources */,
 				077C67061651B4E1006F3FE6 /* Status.m in Sources */,
 				077C670A1651B748006F3FE6 /* User.m in Sources */,
+				0767B7C91667181B009F7D46 /* AppNetAFHTTPClient.m in Sources */,
+				0767B7CD166798A6009F7D46 /* Engine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
